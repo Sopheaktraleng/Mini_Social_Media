@@ -1,4 +1,4 @@
-import { Controller, Body, Post, Get, Request } from '@nestjs/common';
+import { Controller, Body, Post, Get, Req, Res } from '@nestjs/common';
 import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { UsersService } from '../user';
 import { Public } from '../common/decorator/public.decorator';
@@ -6,7 +6,8 @@ import { AuthService } from './auth.service';
 import { LoginPayload } from './payloads/login.payload';
 import { ResetPayload } from './payloads/reset.payload';
 import { RegisterPayload } from './payloads/register.payload';
-
+import { ConfigService } from '@nestjs/config';
+import { Request, Response, response } from 'express';
 @Controller('api/v1/auth')
 @ApiTags('Authentication')
 export class AuthController {
@@ -18,6 +19,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UsersService,
+    private readonly configService: ConfigService,
   ) {}
 
   /**
@@ -34,7 +36,21 @@ export class AuthController {
     const user = await this.authService.validateUser(payload);
     return await this.authService.createToken(user);
   }
-
+  @Public()
+  @Get('login-google')
+  loginGoogle(@Res() response: Response): any {
+    const client_id = this.configService.get<string>('GOOGLE_CLIENT_ID');
+    // const client_secret = this.configService.get<string>('GOOGLE_CLIENT_ID');
+    const client_callback = this.configService.get<string>('GOOGLE_CALLBACK');
+    const uri = `http://accounts.google.com/o/oauth2/v2/auth?client_id=${client_id}&redirect_uri=${client_callback}&response_type=code&scope=email profile openid`;
+    response.redirect(uri);
+  }
+  @Public()
+  @Get('google/callback')
+  async goolgeCallback(@Req() request: Request): Promise<any> {
+    const query = request.query;
+    return query;
+  }
   /**
    * Change user password
    * @param payload change password payload
@@ -70,7 +86,7 @@ export class AuthController {
   @Get('me')
   @ApiResponse({ status: 200, description: 'Successful Response' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getLoggedInUser(@Request() request): Promise<any> {
+  async getLoggedInUser(@Req() request): Promise<any> {
     return await this.userService.getByUsername(request.user.username);
   }
 }

@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Hash } from '../../utils/Hash';
 import { UserEntity, UsersService } from '../user';
 import { LoginPayload } from './payloads/login.payload';
-import { ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class AuthService {
@@ -28,4 +28,6 @@ export class AuthService {
     }
     return user;
   }
+  
 }
+

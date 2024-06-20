@@ -48,8 +48,8 @@ export class AuthController {
   @Public()
   @Get('google/callback')
   async goolgeCallback(@Req() request: Request): Promise<any> {
-    const query = request.query;
-    return query;
+    const { code } = request.query;
+    return this.authService.registerGoogleUser(code);
   }
   /**
    * Change user password

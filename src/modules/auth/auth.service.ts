@@ -46,5 +46,6 @@ export class AuthService {
         grant_type: 'authorization_code',
       },
     );
+    return data;
 }
 }

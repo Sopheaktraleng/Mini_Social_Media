@@ -7,7 +7,8 @@ import { LoginPayload } from './payloads/login.payload';
 import { ResetPayload } from './payloads/reset.payload';
 import { RegisterPayload } from './payloads/register.payload';
 import { ConfigService } from '@nestjs/config';
-import { Request, Response, response } from 'express';
+import { Request, Response } from 'express';
+
 @Controller('api/v1/auth')
 @ApiTags('Authentication')
 export class AuthController {

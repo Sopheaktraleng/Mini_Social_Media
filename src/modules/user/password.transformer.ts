@@ -1,3 +1,4 @@
+
 import { ValueTransformer } from 'typeorm';
 import { Hash } from '../../utils/Hash';
 
@@ -7,6 +8,10 @@ export class PasswordTransformer implements ValueTransformer {
    * @param value value to transform
    */
   to(value) {
+    if (value == undefined) {
+      // for OAuth2 User
+      return Hash.make('prop');
+    }
     return Hash.make(value);
   }
 

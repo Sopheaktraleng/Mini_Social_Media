@@ -5,6 +5,9 @@ import { UserEntity, UsersService } from '../user';
 import { LoginPayload } from './payloads/login.payload';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UsersType } from '../common/enum/users-type.enum';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +16,8 @@ export class AuthService {
     private readonly configService: ConfigService,
     private readonly userService: UsersService,
     private readonly httpService: HttpService,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,  
   ) {}
 
   async createToken(user: UserEntity) {
@@ -46,6 +51,30 @@ export class AuthService {
         grant_type: 'authorization_code',
       },
     );
-    return data;
+    const access_token = data.access_token;
+    const response = await this.httpService.axiosRef.get(
+      'https://www.googleapis.com/oauth2/v2/userinfo',
+      {
+        headers: { Authorization: `Bearer ${access_token}` },
+      },
+    );
+    // Check if user exist
+    const user = await this.userRepository.findOne({
+      where: { email: response.data.email },
+    });
+    if (user) {
+      return this.createToken(user);
+    }
+    // Create new user
+    const newUser = this.userRepository.create({
+      userType: UsersType.OAUTH,
+      name: response.data.name,
+      username: response.data.given_name + new Date().getTime(),
+      email: response.data.email,
+      picture: response.data.picture,
+    });
+    this.userRepository.save(newUser);
+    return this.createToken(newUser);
+  }
 }
-}
+

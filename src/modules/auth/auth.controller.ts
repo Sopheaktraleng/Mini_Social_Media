@@ -1,4 +1,4 @@
-import { Controller, Body, Post, Get, Req, Res } from '@nestjs/common';
+import { Controller, Body, Post, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { UsersService } from '../user';
 import { Public } from '../common/decorator/public.decorator';
@@ -8,6 +8,7 @@ import { ResetPayload } from './payloads/reset.payload';
 import { RegisterPayload } from './payloads/register.payload';
 import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
+import { GoogleOAuthGuard } from './google-oauth-guard';
 
 @Controller('api/v1/auth')
 @ApiTags('Authentication')
@@ -46,11 +47,11 @@ export class AuthController {
     const uri = `http://accounts.google.com/o/oauth2/v2/auth?client_id=${client_id}&redirect_uri=${client_callback}&response_type=code&scope=email profile openid`;
     response.redirect(uri);
   }
+  @UseGuards(GoogleOAuthGuard)
   @Public()
   @Get('google/callback')
-  async goolgeCallback(@Req() request: Request): Promise<any> {
-    const { code } = request.query;
-    return this.authService.registerGoogleUser(code);
+  async goolgeCallback(@Req() request): Promise<any> {
+    return request.user;
   }
   /**
    * Change user password

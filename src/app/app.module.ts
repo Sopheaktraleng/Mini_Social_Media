@@ -9,10 +9,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtAuthGuard } from '../modules/auth/jwt-guard';
 import { CommonModule } from '../modules/common/common.module';
 import { AuthModule } from '../modules/auth/auth.module';
-import { UserModule } from '../modules/user';
+import { UserModule } from '../modules/users';
 import { LoggingInterceptor } from '../modules/common/interceptor/logging.interceptor';
 import { RolesGuard } from '../modules/common/guard/roles.guard';
-import { BookModule } from 'src/modules/books/book.module';
+import { PostsModule } from 'src/modules/posts/posts.module';
+import { CommentsModule } from 'src/modules/comments/comments.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -85,7 +86,8 @@ import { BookModule } from 'src/modules/books/book.module';
     }),
     AuthModule,
     UserModule,
-    BookModule,
+    PostsModule,
+    CommentsModule,
     CommonModule,
   ],
   controllers: [AppController],

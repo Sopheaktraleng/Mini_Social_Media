@@ -1,6 +1,6 @@
 import { Controller, Body, Post, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { UsersService } from '../user';
+import { UsersService } from '../users';
 import { Public } from '../common/decorator/public.decorator';
 import { AuthService } from './auth.service';
 import { LoginPayload } from './payloads/login.payload';

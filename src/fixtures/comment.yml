@@ -1,0 +1,4 @@
+entity: CommentEntity
+items:
+  comment{1..10}:
+    content: '{{lorem.words}}'

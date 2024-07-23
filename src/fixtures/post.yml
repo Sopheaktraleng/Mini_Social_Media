@@ -1,0 +1,4 @@
+entity: PostEntity
+items:
+  post{1..10}:
+    content: '{{lorem.words}}'

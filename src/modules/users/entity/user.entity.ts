@@ -5,10 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { PasswordTransformer } from '../password.transformer';
 import { AppRoles } from '../../common/enum/roles.enum';
 import { UsersType } from 'src/modules/common/enum/users-type.enum';
+import { PostEntity } from 'src/modules/posts/entity/post.entity';
+import { CommentEntity } from 'src/modules/comments/entity/comment.entity';
 
 @Entity({
   name: 'users',
@@ -82,6 +85,11 @@ export class UserEntity {
 
   @Column({ type: 'text', nullable: true })
   picture: string;
+
+  @OneToMany(()=> PostEntity, (post) => post.user)
+  posts: PostEntity[];
+  @OneToMany(() => CommentEntity, (comment)=> comment.user)
+  comments: CommentEntity[];
 
   /**
    * Omit password from query selection

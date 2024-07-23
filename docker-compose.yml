@@ -38,7 +38,7 @@ services:
       - postgresdata:/var/lib/postgresql
   redis:
     image: redis:5
-    container_name: tfd-redis
+    container_name: tra-redis
     ports:
       - 6379:6379
 volumes:

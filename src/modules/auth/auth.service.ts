@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Hash } from '../../utils/Hash';
-import { UserEntity, UsersService } from '../users';
+import { UserEntity, UsersService } from '../user';
 import { LoginPayload } from './payloads/login.payload';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
@@ -32,6 +32,9 @@ export class AuthService {
     const user = await this.userService.getByUsername(payload.username);
     if (!user || !Hash.compare(payload.password, user.password)) {
       throw new UnauthorizedException('Username or Password is not correct!');
+    }
+    if (user.userType == UsersType.OAUTH) {
+      throw new UnauthorizedException('OAuth User not allowed here!');
     }
     return user;
   }

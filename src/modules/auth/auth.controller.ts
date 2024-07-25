@@ -1,6 +1,6 @@
 import { Controller, Body, Post, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { UsersService } from '../users';
+import { UsersService } from '../user';
 import { Public } from '../common/decorator/public.decorator';
 import { AuthService } from './auth.service';
 import { LoginPayload } from './payloads/login.payload';
@@ -9,15 +9,11 @@ import { RegisterPayload } from './payloads/register.payload';
 import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
 import { GoogleOAuthGuard } from './google-oauth-guard';
+import { noCache } from 'helmet';
 
 @Controller('api/v1/auth')
 @ApiTags('Authentication')
 export class AuthController {
-  /**
-   * Constructor
-   * @param authService auth service
-   * @param userService user service
-   */
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UsersService,
@@ -42,7 +38,6 @@ export class AuthController {
   @Get('login-google')
   loginGoogle(@Res() response: Response): any {
     const client_id = this.configService.get<string>('GOOGLE_CLIENT_ID');
-    // const client_secret = this.configService.get<string>('GOOGLE_CLIENT_ID');
     const client_callback = this.configService.get<string>('GOOGLE_CALLBACK');
     const uri = `http://accounts.google.com/o/oauth2/v2/auth?client_id=${client_id}&redirect_uri=${client_callback}&response_type=code&scope=email profile openid`;
     response.redirect(uri);

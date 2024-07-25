@@ -10,11 +10,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './entity/user.entity';
 import { Hash } from '../../utils/Hash';
-import {
-  IPaginationOptions,
-  paginate,
-  Pagination,
-} from 'nestjs-typeorm-paginate';
 import { UUIDType } from '../common/validator/FindOneUUID.validator';
 import { ResetPayload } from '../auth/payloads/reset.payload';
 import { UpdatePayload } from './payloads/update.payload';

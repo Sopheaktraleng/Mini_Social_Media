@@ -1,6 +1,6 @@
 import { CommonEntity } from "src/modules/common/entity/common";
 import { PostEntity } from "src/modules/posts/entity/post.entity";
-import { UserEntity } from "src/modules/users";
+import { UserEntity } from "src/modules/user";
 import { Column, Entity, ManyToOne } from "typeorm";
 
 @Entity('Comment')

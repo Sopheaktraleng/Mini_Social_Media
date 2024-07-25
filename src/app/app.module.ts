@@ -9,7 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtAuthGuard } from '../modules/auth/jwt-guard';
 import { CommonModule } from '../modules/common/common.module';
 import { AuthModule } from '../modules/auth/auth.module';
-import { UserModule } from '../modules/users';
+import { UserModule } from '../modules/user';
 import { LoggingInterceptor } from '../modules/common/interceptor/logging.interceptor';
 import { RolesGuard } from '../modules/common/guard/roles.guard';
 import { PostsModule } from 'src/modules/posts/posts.module';

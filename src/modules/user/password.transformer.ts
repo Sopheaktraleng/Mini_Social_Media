@@ -1,4 +1,3 @@
-
 import { ValueTransformer } from 'typeorm';
 import { Hash } from '../../utils/Hash';
 

@@ -72,7 +72,7 @@ export class AuthService {
     const newUser = this.userRepository.create({
       userType: UsersType.OAUTH,
       name: response.data.name,
-      username: response.data.given_name + new Date().getTime(),
+      username: response.data.firstname + new Date().getTime(),
       email: response.data.email,
       picture: response.data.picture,
     });

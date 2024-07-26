@@ -56,7 +56,7 @@ export class AuthService {
     );
     const access_token = data.access_token;
     const response = await this.httpService.axiosRef.get(
-      'https://www.googleapis.com/oauth2/v2/userinfo',
+      'http://www.googleapis.com/oauth2/v2/userinfo',
       {
         headers: { Authorization: `Bearer ${access_token}` },
       },

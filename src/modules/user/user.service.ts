@@ -15,12 +15,19 @@ import { ResetPayload } from '../auth/payloads/reset.payload';
 import { UpdatePayload } from './payloads/update.payload';
 import { RegisterPayload } from '../auth/payloads/register.payload';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
+import { PostEntity } from '../posts/entity/post.entity';
+import { PostPayload } from './payload/post.payload';
 
 @Injectable()
 export class UsersService extends TypeOrmCrudService<UserEntity> {
+  createPostForUser(newPayload: { content: string; imageUrl?: string; videoUrl?: string; user: string; }) {
+    throw new Error("Method not implemented.");
+  }
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(PostEntity)
+    private readonly postRepository: Repository<PostEntity>,
   ) {
     super(userRepository)
   }
@@ -87,5 +94,20 @@ export class UsersService extends TypeOrmCrudService<UserEntity> {
         `Failed to delete a profile by the name of ${user.username}.`,
       );
     }
+  }
+  async getPostByUserID(id: string){
+    const posts = await this.userRepository.findOne({id :id});
+    return posts;
+  }
+  async createPostByUserID(payload: PostPayload & { user: string}){
+    const newPost = await this.postRepository.save(
+      this.postRepository.create(payload),
+    );
+    const user = await this.userRepository.findOne(payload.user);
+    if(user){
+      user.posts.push(newPost.id);
+      await this.userRepository.save(user);
+    }
+    return newPost;
   }
 }

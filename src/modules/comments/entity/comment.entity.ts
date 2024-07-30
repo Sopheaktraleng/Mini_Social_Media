@@ -8,7 +8,5 @@ export class CommentEntity extends CommonEntity{
     @Column()
     content: string;
     @ManyToOne(()=> UserEntity, (user)=>user.comments)
-    user: UserEntity;
-    @ManyToOne(() => PostEntity, (post)=> post.comments)
-    post: PostEntity;
+    user: string;
 }

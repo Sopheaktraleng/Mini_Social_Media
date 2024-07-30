@@ -38,10 +38,13 @@ export class UserEntity extends CommonEntity{
     default: AppRoles.DEFAULT,
   })
   roles: AppRoles[];
-  @OneToMany(()=> PostEntity, (post) => post.user)
-  posts: PostEntity[];
+  @OneToMany(()=> PostEntity, (post) => post.user, {
+    nullable: true,
+    eager: true,
+  })
+  posts: string[];
   @OneToMany(() => CommentEntity, (comment)=> comment.user)
-  comments: CommentEntity[];
+  comments: string[];
   /**
    * Password column
    */

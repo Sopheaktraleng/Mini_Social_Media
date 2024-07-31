@@ -32,7 +32,6 @@ import { CommentsModule } from 'src/modules/comments/comments.module';
             password: configService.get<string>('DB_PASSWORD'),
             database: configService.get<string>('DB_DATABASE'),
             entities: [__dirname + './../**/**.entity{.ts,.js}'],
-            subscribers: [__dirname + './../**/**/*.subscriber.{ts,js}'],
             synchronize: configService.get<string>('DB_SYNC'),
             retryAttempts: 20,
           } as TypeOrmModuleAsyncOptions;

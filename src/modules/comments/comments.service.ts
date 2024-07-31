@@ -5,7 +5,6 @@ import { CommentEntity } from "./entity/comment.entity";
 import { Repository } from "typeorm";
 import { PostEntity } from "../posts/entity/post.entity";
 import { CommentPayload } from "./payload/comment.payload";
-import { UserEntity } from "../user";
 
 @Injectable()
 export class CommentsService extends TypeOrmCrudService<CommentEntity>{
@@ -14,8 +13,6 @@ export class CommentsService extends TypeOrmCrudService<CommentEntity>{
         private readonly commentsRepository: Repository<CommentEntity>,
         @InjectRepository(PostEntity)
         private readonly postRepository: Repository<PostEntity>,
-        @InjectRepository(UserEntity)
-        private readonly userRepository: Repository<UserEntity>
     ){
         super(commentsRepository);
     }

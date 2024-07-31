@@ -1,9 +1,8 @@
 version: "2"
 services:
   nest:
-    build: 
-      context: .
-      dockerfile: Dockerfile-prod
+    build: .
+    container_name: tra-nest
     depends_on:
       - db
       - redis
@@ -12,11 +11,6 @@ services:
       - ./test:/app/test
       - .env:/app/.env
       - ./upload:/app/upload
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: '1024MB'
   nginx:
     build:
       context: .

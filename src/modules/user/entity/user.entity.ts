@@ -45,6 +45,8 @@ export class UserEntity extends CommonEntity{
   posts: string[];
   @OneToMany(() => CommentEntity, (comment)=> comment.user)
   comments: string[];
+  @OneToMany(() => CommentEntity, comment => comment.user)
+  commentss: CommentEntity[];
   /**
    * Password column
    */

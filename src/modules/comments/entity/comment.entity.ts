@@ -7,6 +7,8 @@ import { Column, Entity, ManyToOne } from "typeorm";
 export class CommentEntity extends CommonEntity{
     @Column()
     content: string;
-    @ManyToOne(()=> UserEntity, (user)=>user.comments)
-    user: string;
+    @ManyToOne(() => UserEntity, user => user.comments)
+    user: UserEntity;
+    @ManyToOne(() => PostEntity, post => post.comments)
+    post: PostEntity;
 }

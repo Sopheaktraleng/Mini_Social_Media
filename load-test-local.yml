@@ -2,5 +2,12 @@ version: "1.0"
 name: Test Posts
 env:
   host: localhost
+  config:
+  loadTest:
+    phases:
+      - duration: 2
+        arrivalRate: 1
+      - duration: 10
+        arrivalRate: 2
 tests:
   $ref: './load-test/post.yml'

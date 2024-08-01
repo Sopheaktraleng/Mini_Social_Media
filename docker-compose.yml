@@ -3,7 +3,7 @@ services:
   nest:
     build: 
       context: .
-      dockerfile: Dockerfile-prod
+      dockerfile: Dockerfile
     depends_on:
       - db
       - redis

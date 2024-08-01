@@ -1,0 +1,6 @@
+version: "1.0"
+name: Test Posts
+env:
+  host: localhost
+tests:
+  $ref: './load-test/post.yml'

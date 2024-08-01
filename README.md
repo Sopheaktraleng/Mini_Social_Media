@@ -29,3 +29,7 @@ Once you managed to run the docker container, the following service will be avai
 ## Generate fixtures
 ```bash
 $ docker exec -it mini_social_media-nest-1 yarn fixture:generate 
+## Features
+- User can register and login with jwt and google oauth2
+- User can post and Comment
+- Users can perform CRUD on this own posts

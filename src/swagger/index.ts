@@ -11,7 +11,7 @@ import {
   API_ROOT,
   SITE_TITLE,
 } from './configs';
-import * as fs from 'fs';
+// import * as fs from 'fs';
 
 export const setupSwagger = (app: INestApplication) => {
   const customOptions: SwaggerCustomOptions = {
@@ -27,14 +27,14 @@ export const setupSwagger = (app: INestApplication) => {
     .setTitle(API_NAME)
     .setDescription(API_DESCRIPTION)
     .setVersion(API_CURRENT_VERSION)
-      .addTag('Authentication')
-      .addTag('Users')
-      .addTag('Posts')
-      .addTag('Comments')
-      .addServer('/api/v1')
+      // .addTag('Authentication')
+      // .addTag('Users')
+      // .addTag('Posts')
+      // .addTag('Comments')
+      // .addServer('/api/v1')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  fs.writeFileSync('/swagger-spec.json', JSON.stringify(document));
+  // fs.writeFileSync('/swagger-spec.json', JSON.stringify(document));
   SwaggerModule.setup(API_ROOT, app, document, customOptions);
 };

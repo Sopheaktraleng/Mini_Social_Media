@@ -29,7 +29,10 @@ Once you managed to run the docker container, the following service will be avai
 ## Generate fixtures
 ```bash
 $ docker exec -it mini_social_media-nest-1 yarn fixture:generate 
-
+## Migration
+$ docker exec -it mini_social_media-nest-1 yarn migration:generate -n GenerateTable
+## Testing with stepci 
+$ stepci run load-test-local.yml
 ### Features
 - User can register and login with jwt and google oauth2
 - User can post and Comment

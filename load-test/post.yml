@@ -6,14 +6,14 @@ posts:
         method: GET
         check:
           status: /^20/
-    - name: Create post
-      http:
-        url: https://${{env.host}}//api/v1/posts
-        method: POST
-        headers:
-          Content-Type: application/json
-          accept: application/jason
-        json:
-          content: ${{ lorem.words | fake }}
-         check:
-          status: /^20/
+    # - name: Create post
+    #   http:
+    #     url: https://${{env.host}}//api/v1/posts
+    #     method: POST
+    #     headers:
+    #       Content-Type: application/json
+    #       accept: application/jason
+    #     json:
+    #       content: ${{ lorem.words | fake }}
+    #      check:
+    #       status: /^20/

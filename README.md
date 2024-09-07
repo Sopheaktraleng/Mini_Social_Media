@@ -11,7 +11,6 @@
 Run the following scripts for UNIX (Mac,Linux)
 ```bash
 $ cp .env.example .env
-$ docker-compose build
 $ docker-compose up -d
 ```
 DOS(Windows)

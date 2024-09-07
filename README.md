@@ -13,11 +13,6 @@ Run the following scripts for UNIX (Mac,Linux)
 $ cp .env.example .env
 $ docker-compose up -d
 ```
-DOS(Windows)
-```bash
-$ copy .env.example .env
-$ docker-compose up -d
-```
 ## Available Services with Docker Container
 Once you managed to run the docker container, the following service will be available:
 - Nginx will serve as a reverse proxy and will be exposed through port 80 (http://localhost)
@@ -27,11 +22,16 @@ Once you managed to run the docker container, the following service will be avai
 - NestJs Server (Only Available in internal docker network) (http://0.0.0.0:3000)
 ## Generate fixtures
 ```bash
-$ docker exec -it mini_social_media-nest-1 yarn fixture:generate 
+$ docker exec -it mini_social_media-nest-1 yarn fixture:generate
+```
 ## Migration
+```bash
 $ docker exec -it mini_social_media-nest-1 yarn migration:generate -n GenerateTable
+```
 ## Testing with stepci 
+```bash
 $ stepci run load-test-local.yml
+```
 ### Features
 - User can register and login with jwt and google oauth2
 - User can post and Comment
